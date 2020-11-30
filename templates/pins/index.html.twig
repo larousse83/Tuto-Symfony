@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Find all the best pins on earth !'%}
+
+{% block body %}
+
+    {% set pin_count =  pins|length%}
+    <h1>{{ plurilaze(pins|length, 'Pin')}}
+         ✅</h1>
+
+    {% for pin in pins %}
+        <article>
+            <h2>{{ pin.title }}
+               {#<a href="{{ path("app_pins_show", {id : pin.id}) }}"></a> #}
+            </h2>
+            <p>{{ pin.description }}</p>
+            {# <p><a href="{{ path("app_pins_show", {'id' : pin.id}) }}">voir</a></p> #}
+        </article>
+    {% else %}
+        <p>Désolé, il n'y a pas de pin</p>
+    {% endfor %}
+
+{% endblock %}

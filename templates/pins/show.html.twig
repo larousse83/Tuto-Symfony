@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title ''%}
+
+{% block body %}
+
+    <h1>{{ pin.title }}</h1>
+    <p>{{ pin.description }}</p>
+    <p><a href="{{ path('app_home') }}">retour</a></p>
+
+{% endblock %}

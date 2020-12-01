@@ -5,16 +5,15 @@
 {% block body %}
 
     {% set pin_count =  pins|length%}
-    <h1>{{ plurilaze(pins|length, 'Pin')}}
-         ✅</h1>
+
+    <h1>{{ plurilaze(pins|length, 'Pin')}} ✅</h1>
+    <div></div>
 
     {% for pin in pins %}
         <article>
-            <h2>{{ pin.title }}
-               {#<a href="{{ path("app_pins_show", {id : pin.id}) }}"></a> #}
-            </h2>
+            <h2><a href="{{ path("app_pins_show", {id : pin.id}) }}">{{ pin.title }}</a></h2>
             <p>{{ pin.description }}</p>
-            {# <p><a href="{{ path("app_pins_show", {'id' : pin.id}) }}">voir</a></p> #}
+            <p><a href="{{ path("app_pins_show", {'id' : pin.id}) }}">voir</a></p>
         </article>
     {% else %}
         <p>Désolé, il n'y a pas de pin</p>

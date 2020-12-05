@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Find all the best pins on earth !'%}
+
+{% block body %}
+
+    {% set pin_count =  pins|length%}
+
+    <h1>{{ plurilaze(pins|length, 'Pin')}} ✅</h1>
+    <div></div>
+
+    {% for pin in pins %}
+        <article>
+            <h2><a href="{{ path("app_pins_show", {id : pin.id}) }}">{{ pin.title }}</a></h2>
+            <p>{{ pin.description|u.truncate(20, '...', false) }}</p>
+            <p>Submited {{ pin.createdAt|ago }}</p>
+        </article>
+    {% else %}
+        <p>Désolé, il n'y a pas de pin</p>
+    {% endfor %}
+
+{% endblock %}

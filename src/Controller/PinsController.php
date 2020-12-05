@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
+use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,17 +29,7 @@ class PinsController extends AbstractController
     {
         $pin = new Pin();
 
-        $form = $this->createFormBuilder($pin)
-            ->add('title', null, [
-                //'required' => false,
-                'attr' =>['autofocus' => true]
-            ])
-            ->add('description', null,['attr' =>[
-                'rows' => 10,
-                'cols' => 50
-            ]])
-            ->getForm()
-        ;
+        $form = $this->createForm(PinType::class, $pin);
 
         $form->handleRequest($request);
 
@@ -64,21 +55,11 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id}/edit", name="app_pins_edit", methods={"GET", "POST"}))
+     * @Route("/pins/{id}/edit", name="app_pins_edit", methods={"GET", "PUT"}))
      */
     public function edit(Request $request, EntityManagerInterface $em, Pin $pin): Response
     {
-        $form = $this->createFormBuilder($pin)
-            ->add('title', null, [
-                //'required' => false,
-                'attr' =>['autofocus' => true]
-            ])
-            ->add('description', null,['attr' =>[
-                'rows' => 10,
-                'cols' => 50
-            ]])
-            ->getForm()
-        ;
+        $form = $this->createForm(PinType::class, $pin, ['method' => 'PUT']);
 
         $form->handleRequest($request);
 

@@ -13,7 +13,6 @@
         <article>
             <h2><a href="{{ path("app_pins_show", {id : pin.id}) }}">{{ pin.title }}</a></h2>
             <p>{{ pin.description|u.truncate(20, '...', false) }}</p>
-            <p><a href="{{ path("app_pins_show", {'id' : pin.id}) }}">voir</a></p>
             <p>Submited {{ pin.createdAt|ago }}</p>
         </article>
     {% else %}

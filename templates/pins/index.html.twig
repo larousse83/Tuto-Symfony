@@ -4,19 +4,38 @@
 
 {% block body %}
 
-    {% set pin_count =  pins|length%}
+    {% if pins|length > 0%}
+        <h1 class="text-center text-muted mb-4">{{ plurilaze(pins|length, 'Pin')}} ✅</h1>
+        {% for row in pins|batch(3) %}
 
-    <h1>{{ plurilaze(pins|length, 'Pin')}} ✅</h1>
-    <div></div>
+            <div class="row mb-5">
 
-    {% for pin in pins %}
-        <article>
-            <h2><a href="{{ path("app_pins_show", {id : pin.id}) }}">{{ pin.title }}</a></h2>
-            <p>{{ pin.description|u.truncate(20, '...', false) }}</p>
-            <p>Submited {{ pin.createdAt|ago }}</p>
-        </article>
+                {% for pin in row %}
+                    <div class="col-md-4">
+                        <article class="bg-white rounded shadow pin">
+                            <div class="mw-100 overflow-hidden">
+                                <a href="{{ path("app_pins_show", {id : pin.id}) }}">
+                                    <img src="{{ pin.imageName ? vich_uploader_asset(pin) |imagine_filter('squared_thumbnail_medium') : asset('build/images/default.webp') |
+                                    imagine_filter('squared_thumbnail_medium') }}" alt="{{ pin.title }}" class="w-100 rounded-top"/>
+                                </a>
+                            </div>
+
+                            <h2 class="h5 pl-3 pt-3"><a class="text-decoration-none text-secondary" href="{{ path("app_pins_show", {id : pin.id}) }}">{{ pin.title }}</a></h2>
+                            <!--<p>{{ pin.description|u.truncate(20, '...', false) }}</p>
+                            <p>Submited {{ pin.createdAt|ago }}</p>-->
+                            <p class="pl-3 pb-3 text-muted"><small>Submited [OWNER FULL NAME]</small></p>
+                        </article>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
     {% else %}
-        <p>Désolé, il n'y a pas de pin</p>
-    {% endfor %}
+        <p class="h1 mt-5 text-center">No pins yet. <a href="{{ path("app_pin_create") }}"> Be the first !</a></p>
+    {% endif %}
+
+    
 
 {% endblock %}

@@ -8,15 +8,6 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    public function getFilters(): array
-    {
-        return [
-            // If your filter generates SAFE HTML, you should add a third
-            // parameter: ['is_safe' => ['html']]
-            // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
-            new TwigFilter('filter_name', [$this, 'doSomething']),
-        ];
-    }
 
     public function getFunctions(): array
     {
@@ -24,11 +15,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('plurilaze', [$this, 'plurilaze']),
         ];
     }
-
-    public function doSomething($value)
-    {
-        // ...
-    }
+    
     public function plurilaze(int $count, string $singular, ?string $plural = null):string
     {
         // si un pluriel est indiqué je lui assign sinon j'assign le singulier avec un 's' en plus

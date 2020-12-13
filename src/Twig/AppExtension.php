@@ -15,7 +15,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('plurilaze', [$this, 'plurilaze']),
         ];
     }
-    
+
     public function plurilaze(int $count, string $singular, ?string $plural = null):string
     {
         // si un pluriel est indiqué je lui assign sinon j'assign le singulier avec un 's' en plus

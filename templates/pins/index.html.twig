@@ -5,7 +5,7 @@
 {% block body %}
 
     {% if pins|length > 0%}
-        <h1 class="text-center text-muted mb-4">{{ plurilaze(pins|length, 'Pin')}} ✅</h1>
+        <h1 class="text-center text-muted mb-4">{{ plurilaze(pins|length, 'Pin')}}</h1>
         {% for row in pins|batch(3) %}
 
             <div class="row mb-5">
@@ -24,6 +24,13 @@
                             <!--<p>{{ pin.description|u.truncate(20, '...', false) }}</p>
                             <p>Submited {{ pin.createdAt|ago }}</p>-->
                             <p class="pl-3 pb-3 text-muted"><small>Submited by {{ pin.user.fullName }}</small></p>
+
+                            <a class="m-3 btn btn-danger" href="#" onclick="event.preventDefault(); confirm('Are you sure') && document.getElementById('js-pin-delete-form-{{pin.id}}').submit();">&times; Delete</a>
+
+                            <form id="js-pin-delete-form-{{pin.id}}" action="{{ path('app_pins_delete', {id:pin.id}) }}" method="post" style="display: none">
+                                <input type="hidden" name="csrf_token_deletePin" value="{{ csrf_token('pin_deletion_'~pin.id) }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>
                         </article>
                     </div>
 
